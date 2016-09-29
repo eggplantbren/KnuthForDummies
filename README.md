@@ -7,6 +7,14 @@ This work is licensed under the Creative Commons
 Attribution 4.0 International (CC BY 4.0)
 [licence](https://creativecommons.org/licenses/by/4.0/).
 
+Note
+====
+
+I am using the
+[coloremoji package](https://github.com/alecjacobson/coloremoji.sty)
+to include emojis in the LaTeX. You'll need coloremoji.sty
+and the emoji_images directory from that project in order
+to compile things.
 
 What is this?
 =============
