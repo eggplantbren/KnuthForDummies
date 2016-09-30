@@ -31,25 +31,37 @@ have twenty apples, each of which has been weighed precisely.
 We could put the apples in order by mass, from lowest to highest (or
 the other way around).
 
-More formally, for a set $\mathcal{O} = \{O_1, O_2, ..., O_n\}$,
-if we take two elements
-and call them $x$ and $y$, then either $x > y$ or $y > x$.
-This is called a {\em totally ordered set}, and later, there
-will be a concept called a {\em chain} which is pretty much
-the same thing.
+More formally, think of a set $\mathcal{S} = \{s_1, s_2, ..., s_n\}$.
+If we can take any two elements
+(call them $x$ and $y$) and say that either $x > y$ or $y > x$ (where
+we get to define what ``greater than'' means for a particular application),
+then $\mathcal{S}$ is a {\em totally ordered set}. The definition of
+$>$ that you use has to have the properties that $>$ usually does. For
+example, if $x > y$ and $y > z$, then $x > z$. 
+Later, there will be a concept called a {\em chain} which is pretty much
+the same as a partially ordered set.
+If you are used to computer programming, then any
+list/vector/array of items which can be unambiguously sorted
+is a totally ordered set.
 
-We can draw this situation using points on a line. Each point
-is an element of the set.
-
-The points are arranged from lowest to highest, so if $x > y$ (element
+We can draw this situation using points on a line
+(Figure~\ref{fig:totally_ordered_set}).
+Each point
+represents an element of the set, and they are arranged from highest
+to lowest in terms of which elements are ``greater than'' other elements.
+That is, if $x > y$ (element
 $x$ is ranked above element $y$), then $x$ is drawn above $y$ in the
 diagram.
-
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.6]{figures/totally_ordered_set.pdf}
-\caption{\label{fig:totally_ordered_set}}
+\caption{A set with five elements, each represented by a black dot.
+When one dot is above another and they are connected with a line, it
+means the higher element is greater than (using whatever definition of $>$ we
+choose) the lower one.
+This is a simple example of a {\em Hasse diagram}. More complex
+Hasse diagrams will appear later.\label{fig:totally_ordered_set}}
 \end{figure}
 
 

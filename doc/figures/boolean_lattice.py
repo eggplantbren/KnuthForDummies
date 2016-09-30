@@ -45,4 +45,4 @@ pgm.add_edge("a2va3", "top", directed=False)
 
 pgm.render()
 pgm.figure.savefig("boolean_lattice.pdf", bbox_inches="tight")
-
+pgm.figure.savefig("boolean_lattice.svg", bbox_inches="tight")
