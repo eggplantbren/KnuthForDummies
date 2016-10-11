@@ -16,6 +16,12 @@ to include emojis in the LaTeX. You'll need coloremoji.sty
 and the emoji_images directory from that project in order
 to compile things.
 
+I'm also using
+[this BibTex file]
+(https://raw.githubusercontent.com/eggplantbren/references.bib/master/references.bib)
+for references, so the references won't appear in the text
+unless you download this.
+
 What is this?
 =============
 
