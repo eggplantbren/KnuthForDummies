@@ -6,7 +6,11 @@ module KnuthForDummies.Statement where
 
 -- A statement
 newtype Statement = Statement [Bool]
-    deriving (Eq, Show)
+    deriving (Eq)
+
+-- Nice way of printing statements
+instance Show Statement
+    where show (Statement bs) = map (\x -> if (x==True) then '1' else '0') bs
 
 -- Smart constructor for statements
 makeStatement :: Int                -- Number of atoms
