@@ -27,3 +27,19 @@ makeBooleanLattice n
                     statements = map fromJust ss
                     numAtoms = n
 
+-- Return the bottom element
+bottom :: BooleanLattice -> Statement
+bottom BooleanLattice {..} = statements !! 0
+
+-- Disjoint triples of statements (without bottom element)
+disjointTriples :: BooleanLattice -> [(Int, Int, Int)]
+disjointTriples BooleanLattice {..} =
+    [(i, j, k) |
+                 i <- [0..m], j <- [(i+1)..m], k <- [(j+1)..m],
+                 (disjoint (ss !! i) (ss !! j)) &&
+                 (disjoint (ss !! i) (ss !! k)) &&
+                 (disjoint (ss !! j) (ss !! k))]
+        where
+           ss = statements
+           m  = length ss - 1
+

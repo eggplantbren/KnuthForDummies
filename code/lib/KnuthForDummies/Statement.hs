@@ -40,6 +40,17 @@ implies :: Statement -> Statement -> Bool
     True  -> all (== True) $ map (\(a,b) -> if a then b else True) $ zip x y
     False -> error "Unequal number of bits."
 
+-- Are the two statements mutually exclusive / disjoint?
+disjoint :: Statement -> Statement -> Bool
+disjoint (Statement x) (Statement y) = case (length x == length y) of
+    True  -> let n = length x in
+            (meet (Statement x) (Statement y) == Statement (replicate n False))
+    False -> error "Unequal number of bits."
+
+-- An alias for disjoint
+mutuallyExclusive :: Statement -> Statement -> Bool
+mutuallyExclusive = disjoint
+
 -- Same as implies but the other way around
 isImpliedBy :: Statement -> Statement -> Bool
 x `isImpliedBy` y = y `implies` x

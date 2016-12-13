@@ -70,6 +70,23 @@ testImplies = withSystemRandom . asGenIO $ \gen -> do
 
     return ()
 
+-- Test disjoint
+testDisjoint :: IO ()
+testDisjoint = withSystemRandom . asGenIO $ \gen -> do
+    x <- replicateM 5 (uniform gen) :: IO [Bool]
+    y <- replicateM 5 (uniform gen) :: IO [Bool]
+
+    let x' = Statement x
+    let y' = Statement y
+    let z' = disjoint x' y'
+
+    putStrLn "Testing disjoint:\n"
+    putStrLn $ "x       = " ++ (show x')
+    putStrLn $ "y       = " ++ (show y')
+    putStrLn $ "Disjoint? " ++ (show z') ++ "\n"
+
+    return ()
+
 
 main :: IO ()
 main = do
@@ -79,6 +96,7 @@ main = do
     testJoin
     testMeet
     testImplies
+    testDisjoint
 
     return ()
 
