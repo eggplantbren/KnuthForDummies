@@ -20,13 +20,27 @@ makeStatement n included
     | n <= 0 = Nothing
     | any (<0) included || any (>= n) included = Nothing
     | otherwise = Just (Statement bits) where
-        bits     = [i `elem` included | i <- [0..n]]
+        bits    = [i `elem` included | i <- [0..(n-1)]]
 
 -- Logical 'or' of two statements
 join :: Statement -> Statement -> Statement
-join (Statement x) (Statement y) = Statement z where z = zipWith (||) x y
+join (Statement x) (Statement y) = case (length x == length y) of
+    True  -> Statement z where z = zipWith (||) x y
+    False -> error "Unequal number of bits."
 
 -- Logical 'and' of two statements
 meet :: Statement -> Statement -> Statement
-meet (Statement x) (Statement y) = Statement z where z = zipWith (&&) x y
+meet (Statement x) (Statement y) = case (length x == length y) of
+    True -> Statement z where z = zipWith (&&) x y
+    False -> error "Unequal number of bits."
+
+-- Does one statement imply another?
+implies :: Statement -> Statement -> Bool
+(Statement x) `implies` (Statement y) = case (length x == length y) of
+    True  -> all (== True) $ map (\(a,b) -> if a then b else True) $ zip x y
+    False -> error "Unequal number of bits."
+
+-- Same as implies but the other way around
+isImpliedBy :: Statement -> Statement -> Bool
+x `isImpliedBy` y = y `implies` x
 

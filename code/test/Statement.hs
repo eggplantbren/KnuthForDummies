@@ -9,36 +9,54 @@ import Control.Monad (replicateM)
 -- Test the join
 testJoin :: IO ()
 testJoin = withSystemRandom . asGenIO $ \gen -> do
-    x <- replicateM 10 (uniform gen) :: IO [Bool]
-    y <- replicateM 10 (uniform gen) :: IO [Bool]
+    x <- replicateM 5 (uniform gen) :: IO [Bool]
+    y <- replicateM 5 (uniform gen) :: IO [Bool]
 
     let x' = Statement x
     let y' = Statement y
-    let m'  = join x' y'
+    let z'  = join x' y'
 
     putStrLn "Testing join:\n"
     putStrLn $ "x     = " ++ (show x')
     putStrLn $ "y     = " ++ (show y')
-    putStrLn $ "x v y = " ++ (show m')    
+    putStrLn $ "x v y = " ++ (show z')    
 
     return ()
 
 -- Test the meet
 testMeet :: IO ()
 testMeet = withSystemRandom . asGenIO $ \gen -> do
-    x <- replicateM 10 (uniform gen) :: IO [Bool]
-    y <- replicateM 10 (uniform gen) :: IO [Bool]
+    x <- replicateM 5 (uniform gen) :: IO [Bool]
+    y <- replicateM 5 (uniform gen) :: IO [Bool]
 
     let x' = Statement x
     let y' = Statement y
-    let m'  = meet x' y'
+    let z'  = meet x' y'
 
     putStrLn "Testing meet:\n"
     putStrLn $ "x     = " ++ (show x')
     putStrLn $ "y     = " ++ (show y')
-    putStrLn $ "x ^ y = " ++ (show m')    
+    putStrLn $ "x ^ y = " ++ (show z')
 
     return ()
+
+-- Test implies
+testImplies :: IO ()
+testImplies = withSystemRandom . asGenIO $ \gen -> do
+    x <- replicateM 5 (uniform gen) :: IO [Bool]
+    y <- replicateM 5 (uniform gen) :: IO [Bool]
+
+    let x' = Statement x
+    let y' = Statement y
+    let z' = x' `implies` y'
+
+    putStrLn "Testing implies:\n"
+    putStrLn $ "x             = " ++ (show x')
+    putStrLn $ "y             = " ++ (show y')
+    putStrLn $ "x `implies` y = " ++ (show z')
+
+    return ()
+
 
 main :: IO ()
 main = do
@@ -46,6 +64,8 @@ main = do
     testJoin
     putStrLn ""
     testMeet
+    putStrLn ""
+    testImplies
 
     return ()
 
