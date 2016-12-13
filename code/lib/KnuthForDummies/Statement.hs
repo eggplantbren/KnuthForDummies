@@ -1,12 +1,12 @@
 {-
     Types and functions relating to statements.
 -}
-{-# LANGUAGE RecordWildCards #-}
 
 module KnuthForDummies.Statement where
 
 -- A statement
-data Statement = Statement { numAtoms :: Int, bits :: [Bool] }
+newtype Statement = Statement [Bool]
+    deriving (Eq, Show)
 
 -- Smart constructor for statements
 makeStatement :: Int                -- Number of atoms
@@ -15,7 +15,14 @@ makeStatement :: Int                -- Number of atoms
 makeStatement n included
     | n <= 0 = Nothing
     | any (<0) included || any (>= n) included = Nothing
-    | otherwise = Just Statement {..} where
-        numAtoms = n
+    | otherwise = Just (Statement bits) where
         bits     = [i `elem` included | i <- [0..n]]
+
+-- Logical 'or' of two statements
+join :: Statement -> Statement -> Statement
+join (Statement x) (Statement y) = Statement z where z = zipWith (||) x y
+
+-- Logical 'and' of two statements
+meet :: Statement -> Statement -> Statement
+meet (Statement x) (Statement y) = Statement z where z = zipWith (&&) x y
 
