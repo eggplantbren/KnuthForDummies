@@ -19,13 +19,6 @@ testMakeStatement = do
 
     return ()
 
-
---makeStatement :: Int                -- Number of atoms
---              -> [Int]              -- Which atoms are included
---              -> Maybe Statement
-
-
-
 -- Test the join
 testJoin :: IO ()
 testJoin = withSystemRandom . asGenIO $ \gen -> do

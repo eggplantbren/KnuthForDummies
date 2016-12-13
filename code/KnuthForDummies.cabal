@@ -16,7 +16,8 @@ library
   hs-source-dirs:      lib
   default-language:    Haskell2010
   ghc-options:         -Wall -O2
-  exposed-modules:     KnuthForDummies.Statement
+  exposed-modules:     KnuthForDummies.Statement,
+                       KnuthForDummies.BooleanLattice
   build-depends:       base >= 4.7 && < 5
 
 executable Main
@@ -25,7 +26,6 @@ executable Main
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5
   ghc-options:         -Wall -O2
-
 
 executable TestStatement
   hs-source-dirs:      test
@@ -36,3 +36,10 @@ executable TestStatement
                        mwc-random
   ghc-options:         -Wall
 
+executable TestBooleanLattice
+  hs-source-dirs:      test
+  main-is:             BooleanLattice.hs
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5,
+                       KnuthForDummies
+  ghc-options:         -Wall
