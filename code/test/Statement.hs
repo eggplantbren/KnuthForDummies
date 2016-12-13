@@ -5,6 +5,26 @@ import KnuthForDummies.Statement
 import System.Random.MWC
 import Control.Monad (replicateM)
 
+-- Test the smart constructor
+-- Smart constructor for statements
+testMakeStatement :: IO ()
+testMakeStatement = do
+    let on = [2, 4]
+    let x = case (makeStatement 5 on) of
+                Nothing -> error "Error."
+                Just x' -> x'
+
+    putStrLn "Testing makeStatement:\n"
+    putStrLn $ (show x) ++ "\n"
+
+    return ()
+
+
+--makeStatement :: Int                -- Number of atoms
+--              -> [Int]              -- Which atoms are included
+--              -> Maybe Statement
+
+
 
 -- Test the join
 testJoin :: IO ()
@@ -19,7 +39,7 @@ testJoin = withSystemRandom . asGenIO $ \gen -> do
     putStrLn "Testing join:\n"
     putStrLn $ "x     = " ++ (show x')
     putStrLn $ "y     = " ++ (show y')
-    putStrLn $ "x v y = " ++ (show z')    
+    putStrLn $ "x v y = " ++ (show z') ++ "\n"
 
     return ()
 
@@ -36,7 +56,7 @@ testMeet = withSystemRandom . asGenIO $ \gen -> do
     putStrLn "Testing meet:\n"
     putStrLn $ "x     = " ++ (show x')
     putStrLn $ "y     = " ++ (show y')
-    putStrLn $ "x ^ y = " ++ (show z')
+    putStrLn $ "x ^ y = " ++ (show z') ++ "\n"
 
     return ()
 
@@ -53,7 +73,7 @@ testImplies = withSystemRandom . asGenIO $ \gen -> do
     putStrLn "Testing implies:\n"
     putStrLn $ "x             = " ++ (show x')
     putStrLn $ "y             = " ++ (show y')
-    putStrLn $ "x `implies` y = " ++ (show z')
+    putStrLn $ "x `implies` y = " ++ (show z') ++ "\n"
 
     return ()
 
@@ -61,10 +81,10 @@ testImplies = withSystemRandom . asGenIO $ \gen -> do
 main :: IO ()
 main = do
     putStrLn "Tests of Statement functions...\n"
+
+    testMakeStatement
     testJoin
-    putStrLn ""
     testMeet
-    putStrLn ""
     testImplies
 
     return ()
