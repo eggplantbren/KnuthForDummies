@@ -2,4 +2,4 @@ doc/*.aux
 doc/*.log
 doc/*.pdf
 doc/figures/boolean_lattice.svg
-
+code/.stack-work/
