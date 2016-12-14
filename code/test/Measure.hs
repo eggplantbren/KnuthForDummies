@@ -34,12 +34,25 @@ testMeasureStatement gen = do
 
     return ()
 
+testDemonstrateFidelity :: Gen RealWorld -> IO ()
+testDemonstrateFidelity gen = do
+    putStrLn "Testing demonstrateFidelity:\n"
+    let bl = case (makeBooleanLattice "a" 3) of
+                Nothing  -> error "Error."
+                Just bl' -> bl'
+
+    m <- generateMeasure bl gen
+    demonstrateFidelity bl m
+
+    return ()
+
 main :: IO ()
 main = withSystemRandom . asGenIO $ \gen -> do
     putStrLn "Tests of Measure functions...\n"
 
     testGenerateMeasure gen
     testMeasureStatement gen
+    testDemonstrateFidelity gen
 
     return ()
 
