@@ -3,6 +3,7 @@ module Main where
 -- Imports
 import KnuthForDummies.Statement
 import System.Random.MWC
+import Control.Monad.Primitive (RealWorld)
 import Control.Monad (replicateM)
 
 -- Test the smart constructor
@@ -20,8 +21,8 @@ testMakeStatement = do
     return ()
 
 -- Test the join
-testJoin :: IO ()
-testJoin = withSystemRandom . asGenIO $ \gen -> do
+testJoin :: Gen RealWorld -> IO ()
+testJoin gen = do
     x <- replicateM 5 (uniform gen) :: IO [Bool]
     y <- replicateM 5 (uniform gen) :: IO [Bool]
 
@@ -37,8 +38,8 @@ testJoin = withSystemRandom . asGenIO $ \gen -> do
     return ()
 
 -- Test the meet
-testMeet :: IO ()
-testMeet = withSystemRandom . asGenIO $ \gen -> do
+testMeet :: Gen RealWorld -> IO ()
+testMeet gen = do
     x <- replicateM 5 (uniform gen) :: IO [Bool]
     y <- replicateM 5 (uniform gen) :: IO [Bool]
 
@@ -54,8 +55,8 @@ testMeet = withSystemRandom . asGenIO $ \gen -> do
     return ()
 
 -- Test implies
-testImplies :: IO ()
-testImplies = withSystemRandom . asGenIO $ \gen -> do
+testImplies :: Gen RealWorld -> IO ()
+testImplies gen = do
     x <- replicateM 5 (uniform gen) :: IO [Bool]
     y <- replicateM 5 (uniform gen) :: IO [Bool]
 
@@ -71,8 +72,8 @@ testImplies = withSystemRandom . asGenIO $ \gen -> do
     return ()
 
 -- Test disjoint
-testDisjoint :: IO ()
-testDisjoint = withSystemRandom . asGenIO $ \gen -> do
+testDisjoint :: Gen RealWorld -> IO ()
+testDisjoint gen = do
     x <- replicateM 5 (uniform gen) :: IO [Bool]
     y <- replicateM 5 (uniform gen) :: IO [Bool]
 
@@ -89,14 +90,14 @@ testDisjoint = withSystemRandom . asGenIO $ \gen -> do
 
 
 main :: IO ()
-main = do
+main = withSystemRandom . asGenIO $ \gen -> do
     putStrLn "Tests of Statement functions...\n"
 
     testMakeStatement
-    testJoin
-    testMeet
-    testImplies
-    testDisjoint
+    testJoin gen
+    testMeet gen
+    testImplies gen
+    testDisjoint gen
 
     return ()
 

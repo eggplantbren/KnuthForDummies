@@ -17,8 +17,11 @@ library
   default-language:    Haskell2010
   ghc-options:         -Wall -O2
   exposed-modules:     KnuthForDummies.Statement,
-                       KnuthForDummies.BooleanLattice
-  build-depends:       base >= 4.7 && < 5
+                       KnuthForDummies.BooleanLattice,
+                       KnuthForDummies.Measure
+  build-depends:       base >= 4.7 && < 5,
+                       mwc-random,
+                       primitive
 
 executable Main
   hs-source-dirs:      src
@@ -33,8 +36,9 @@ executable TestStatement
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5,
                        KnuthForDummies,
-                       mwc-random
-  ghc-options:         -Wall
+                       mwc-random,
+                       primitive
+  ghc-options:         -Wall -O2
 
 executable TestBooleanLattice
   hs-source-dirs:      test
@@ -42,4 +46,15 @@ executable TestBooleanLattice
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5,
                        KnuthForDummies
-  ghc-options:         -Wall
+  ghc-options:         -Wall -O2
+
+executable TestMeasure
+  hs-source-dirs:      test
+  main-is:             Measure.hs
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5,
+                       KnuthForDummies,
+                       mwc-random,
+                       primitive
+  ghc-options:         -Wall -O2
+
