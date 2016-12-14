@@ -22,14 +22,14 @@ testGenerateMeasure gen = do
 testMeasureStatement :: Gen RealWorld -> IO ()
 testMeasureStatement gen = do
     putStrLn "Testing measureStatement:\n"
-    let bl = case (makeBooleanLattice "a" 3) of
+    let bl = case (makeBooleanLattice "a" 2) of
                 Nothing  -> error "Error."
                 Just bl' -> bl'
 
     m <- generateMeasure bl gen
     print bl
     print m
-    print $ map (measureStatement (bl, m)) [0..7]
+    print $ map (measureStatement (bl, m)) [0..3]
     putStrLn ""
 
     return ()
