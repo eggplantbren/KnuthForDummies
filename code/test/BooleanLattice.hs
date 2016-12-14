@@ -7,7 +7,7 @@ testMakeBooleanLattice :: IO ()
 testMakeBooleanLattice = do
     putStrLn "Testing makeBooleanLattice:\n"
 
-    let bl = case (makeBooleanLattice 3) of
+    let bl = case (makeBooleanLattice "a" 3) of
                 Nothing  -> error "Error."
                 Just bl' -> bl'
 
@@ -18,7 +18,7 @@ testBottom :: IO ()
 testBottom = do
     putStrLn "Testing bottom:\n"
 
-    let bl = case (makeBooleanLattice 3) of
+    let bl = case (makeBooleanLattice "a" 3) of
                 Nothing  -> error "Error."
                 Just bl' -> bl'
 
@@ -29,11 +29,28 @@ testDisjointTriples :: IO ()
 testDisjointTriples = do
     putStrLn "Testing disjoint triples:\n"
 
-    let bl = case (makeBooleanLattice 3) of
+    let bl = case (makeBooleanLattice "a" 3) of
                 Nothing  -> error "Error."
                 Just bl' -> bl'
 
     putStrLn $ show (disjointTriples bl) ++ "\n"
+    return ()
+
+testDirectProduct :: IO ()
+testDirectProduct = do
+    putStrLn "Testing direct product:\n"
+
+    let bl1 = case (makeBooleanLattice "a" 3) of
+                Nothing  -> error "Error."
+                Just bl' -> bl'
+
+    let bl2 = case (makeBooleanLattice "b" 2) of
+                Nothing  -> error "Error."
+                Just bl' -> bl'
+
+    let prod = bl1 `directProduct` bl2
+
+    putStrLn $ show prod ++ "\n"
     return ()
 
 main :: IO ()
@@ -43,6 +60,7 @@ main = do
     testMakeBooleanLattice
     testBottom
     testDisjointTriples
+    testDirectProduct
 
     return ()
 

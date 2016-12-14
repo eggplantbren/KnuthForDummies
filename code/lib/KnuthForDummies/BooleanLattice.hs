@@ -12,13 +12,14 @@ import Data.Maybe
 
 -- A data type for Boolean lattices
 data BooleanLattice = BooleanLattice {
+                                       name       :: String,
                                        numAtoms   :: Int,
                                        statements :: [Statement]
                                      } deriving Show
 
 -- Smart constructor
-makeBooleanLattice :: Int -> Maybe BooleanLattice
-makeBooleanLattice n
+makeBooleanLattice :: String -> Int -> Maybe BooleanLattice
+makeBooleanLattice theName n
     | n <= 0    = Nothing
     | otherwise = if (any isNothing ss)
                     then Nothing
@@ -26,6 +27,7 @@ makeBooleanLattice n
                     ss = [ makeStatement n x | x <- subsequences [0..(n-1)] ]
                     statements = map fromJust ss
                     numAtoms = n
+                    name = theName
 
 -- Return the bottom element
 bottom :: BooleanLattice -> Statement
@@ -42,4 +44,10 @@ disjointTriples BooleanLattice {..} =
         where
            ss = statements
            m  = length ss - 1
+
+-- Direct product of two lattices
+directProduct :: BooleanLattice -> BooleanLattice -> BooleanLattice
+directProduct bl1 bl2 = fromJust (makeBooleanLattice newName n) where
+    newName = (name bl1) ++ (name bl2)
+    n       = (numAtoms bl1) + (numAtoms bl2)
 
