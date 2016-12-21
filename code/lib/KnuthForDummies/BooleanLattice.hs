@@ -17,6 +17,10 @@ data BooleanLattice = BooleanLattice {
                                        statements :: [Statement]
                                      } deriving Show
 
+instance Monoid BooleanLattice where
+    mempty = BooleanLattice "" 0 []
+    mappend = directProduct
+
 -- Smart constructor
 makeBooleanLattice :: String -> Int -> Maybe BooleanLattice
 makeBooleanLattice theName n
